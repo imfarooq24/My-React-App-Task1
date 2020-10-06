@@ -31,6 +31,9 @@ class App extends Component {
           <h1>Hey im a react app</h1>
           <p>This is really working</p>
           <p>This is really working</p>
+          <h1>Hey im a react app</h1>
+          <p>This is really working</p>
+          <p>This is really working</p>
           <button onClick={this.changeNameHandler.bind(this,"BUbU")}>Change Names</button>
           <PersonComp name={this.state.person[0].name}
            age={this.state.person[0].age}/>
