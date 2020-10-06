@@ -29,8 +29,6 @@ class App extends Component {
       <div id="root">
         <div className="App">
           <h1>Hey im a react app</h1>
-          <h1>Hey im a react app</h1>
-          <h1>Hey im a react app</h1>
           <p>This is really working</p>
           <button onClick={this.changeNameHandler.bind(this,"BUbU")}>Change Names</button>
           <PersonComp name={this.state.person[0].name}
