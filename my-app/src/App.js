@@ -1,39 +1,42 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import PersonComp from './PersonComp/PersonComp';
 
 class App extends Component {
-
   state ={ 
     person: [
-      {name: "Clara",age:21},
-      {name: "Ash",age:22},
-      {name: "Jenny",age:23},
-      {name: "Messi",age:24}
-    ]
+      {id:'1',name: "Clara",age:21},
+      {id:'2',name: "Ash",age:22},
+      {id:'3',name: "Jenny",age:23},
+      {id:'4',name: "Messi",age:24}
+    ], 
+    show: false
   } 
-  
-  changeNameHandler = (newName) =>{
-    this.setState({
-          person: [
-        {name: newName,age:21},
-        {name: "Ash",age:22},
-        {name: "PIPI",age:23},
-        {name: "Messi",age:24}
-      ]
-    })
-  }
-  inputNameHandler = (event) =>{
-    this.setState({
-          person: [
-        {name: event.target.value,age:21},
-        {name: event.target.value,age:22},
-        {name: event.target.value,age:23},
-        {name: event.target.value ,age:24}
-      ]
-    })
-  }
+  inputNameHandler = (event,id) =>{
+    
+    const personIndex = this.state.person.findIndex(p =>{
+      return p.id === id;
+    });
 
+    const findPerson = {
+      ...this.state.person[personIndex]
+    };
+     findPerson.name=event.target.value;
+
+     const person = [...this.state.person];
+     person[personIndex]=findPerson;
+
+     this.setState({person:person});
+  }
+  ToggleNameHandler = () => {
+    const doesShow = this.state.show;
+    this.setState({show: !doesShow})
+  }
+  DeleteNameHandler = (personIndex) => {
+    const person = [...this.state.person];
+    person.splice(personIndex,1);
+    this.setState({person:person});
+  }
 
   render() {
     // const myStyle = {
@@ -43,6 +46,42 @@ class App extends Component {
     //   padding:'8px',
     //   cursor:'pointer'
     // };
+    let person =null;
+
+    if(this.state.show) {
+      person = (
+        <div>
+          {
+            this.state.person.map((singlePerson,index) => {
+              return <PersonComp
+                name={singlePerson.name}
+                key={singlePerson.id}
+                age={singlePerson.age}
+                inputName={(event) => this.inputNameHandler(event,singlePerson.id)}
+                click={() => this.DeleteNameHandler(index)}/>
+          })
+        }
+        </div>
+        );
+      }
+
+          /* <PersonComp name={this.state.person[0].name}
+          age={this.state.person[0].age}
+          inputName={this.inputNameHandler }/>
+  
+          <PersonComp name={this.state.person[1].name}
+          age={this.state.person[1].age}
+          inputName={this.inputNameHandler }/>
+  
+          <PersonComp name={this.state.person[2].name}
+          inputName={this.inputNameHandler }
+          age={this.state.person[2].age}/>
+  
+          <PersonComp name={this.state.person[3].name}
+          age={this.state.person[3].age}
+          inputName={this.inputNameHandler }/> */
+
+
     return (
       <div id="root">
         
@@ -52,29 +91,33 @@ class App extends Component {
           
           <button 
           // style={myStyle}
-          onClick={() => this.changeNameHandler("BUbU")}>
+          onClick={this.ToggleNameHandler}>
             Change Names
           </button>
-          
-          <PersonComp name={this.state.person[0].name}
-           age={this.state.person[0].age}
-           inputName={this.inputNameHandler }/>
+          {person}
+          {/* {
+            this.state.show === true ?
+            <div>
+              <PersonComp name={this.state.person[0].name}
+              age={this.state.person[0].age}
+              inputName={this.inputNameHandler }/>
 
-          <PersonComp name={this.state.person[1].name}
-           age={this.state.person[1].age}
-           inputName={this.inputNameHandler }/>
+              <PersonComp name={this.state.person[1].name}
+              age={this.state.person[1].age}
+              inputName={this.inputNameHandler }/>
 
-          <PersonComp name={this.state.person[2].name}
-           inputName={this.inputNameHandler }
-           age={this.state.person[2].age}/>
+              <PersonComp name={this.state.person[2].name}
+              inputName={this.inputNameHandler }
+              age={this.state.person[2].age}/>
 
-          <PersonComp name={this.state.person[3].name}
-           age={this.state.person[3].age}
-           inputName={this.inputNameHandler }/>
+              <PersonComp name={this.state.person[3].name}
+              age={this.state.person[3].age}
+              inputName={this.inputNameHandler }/>
+            </div> : null
+          } */}
         </div>
-
       </div>
-    );
+    );  
   }
 }
 
