@@ -25,7 +25,7 @@ class App extends Component {
         character={ch} 
         key={index}
         clicked={() => this.deleteCharHandler(index)} />
-    }); 
+    });
 
     return (
 
@@ -34,8 +34,9 @@ class App extends Component {
          type="text" 
          onChange={this.inputChangeHandler}
          value={this.state.userInput}/>
-      
-        <p> {this.state.userInput } </p>
+
+<p> {this.state.userInput } </p>
+<p> {this.state.userInput } </p>
       
         <ValidationComp inputLength={this.state.userInput.length} />
       
