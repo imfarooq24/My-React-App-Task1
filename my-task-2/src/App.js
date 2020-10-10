@@ -33,8 +33,7 @@ class App extends Component {
         <input 
          type="text" 
          onChange={this.inputChangeHandler}
-         value={this.state.userInput}
-         onClick={this.deleteCharHandler} />
+         value={this.state.userInput}/>
       
         <p> {this.state.userInput } </p>
       
